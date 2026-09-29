@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  base64-app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: base64_devops_app
+    ports:
+      - "8080:80"
+    restart: always

@@ -1,0 +1,25 @@
+{
+  "name": "base64-encoder-decoder-devops",
+  "version": "1.0.0",
+  "description": "Base64 Encoder/Decoder Web Application with complete DevOps CI/CD Pipeline",
+  "main": "src/script.js",
+  "scripts": {
+    "start": "node server.js",
+    "lint": "node -c src/script.js tests/unit.test.js tests/smoke.test.js",
+    "test": "node --test tests/unit.test.js",
+    "smoke-test": "node tests/smoke.test.js",
+    "clean": "node -e \"const fs = require('fs'); if (fs.existsSync('dist')) fs.rmSync('dist', { recursive: true, force: true }); if (fs.existsSync('base64-encoder-decoder-build.zip')) fs.unlinkSync('base64-encoder-decoder-build.zip');\"",
+    "build": "npm run clean && node -e \"const fs = require('fs'); fs.mkdirSync('dist', { recursive: true }); fs.cpSync('src', 'dist', { recursive: true }); console.log('Build output created in ./dist');\"",
+    "package": "npm run build && node -e \"const fs = require('fs'); const zlib = require('zlib'); const path = require('path'); const { execSync } = require('child_process'); console.log('Packaging dist files...'); execSync('powershell -Command \\\"Compress-Archive -Path dist/* -DestinationPath base64-encoder-decoder-build.zip -Force\\\"', { stdio: 'inherit' }); console.log('Created base64-encoder-decoder-build.zip');\""
+  },
+  "keywords": [
+    "devops",
+    "base64",
+    "jenkins",
+    "cicd",
+    "docker",
+    "nginx"
+  ],
+  "author": "Veermaniyan.B",
+  "license": "MIT"
+}

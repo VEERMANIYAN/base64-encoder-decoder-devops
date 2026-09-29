@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64 Encoder / Decoder - DevOps Suite</title>
+  <meta name="description" content="Professional, high-performance client-side Base64 encoder and decoder application built with modern web techniques and complete CI/CD automation support.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 7V4h16v3M9 20h6M12 4v16"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Base64 Studio</h1>
+          <span class="version-tag">v1.0.0 • DevOps Production Ready</span>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="badge badge-success"><span class="pulse-dot"></span> Client-Side Secure</span>
+        <span class="badge badge-info">CI/CD Automated</span>
+      </div>
+    </header>
+
+    <!-- Main Navigation Tabs -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" id="tabTextBtn" data-tab="textSection">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        String Encoder &amp; Decoder
+      </button>
+      <button class="tab-btn" id="tabFileBtn" data-tab="fileSection">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        File Encoder &amp; Decoder
+      </button>
+    </nav>
+
+    <!-- Alert / Toast Container -->
+    <div id="toastNotification" class="toast hidden" role="alert" aria-live="assertive"></div>
+
+    <!-- Section 1: String Operations -->
+    <section id="textSection" class="tab-content active">
+      <div class="card">
+        <div class="card-header">
+          <h2>Text Converter</h2>
+          <div class="quick-actions">
+            <button class="btn btn-secondary btn-sm" id="btnLoadSampleText">Load Sample</button>
+            <button class="btn btn-secondary btn-sm" id="btnClearText">Clear All</button>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <!-- Input Area -->
+          <div class="input-group">
+            <div class="label-row">
+              <label for="textInput">Input Content</label>
+              <span class="char-count" id="textInputCount">0 chars</span>
+            </div>
+            <textarea id="textInput" placeholder="Enter standard plain text or Base64 string here..." rows="8"></textarea>
+            <div class="button-row">
+              <button class="btn btn-primary" id="btnEncodeText">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                Encode to Base64
+              </button>
+              <button class="btn btn-outline" id="btnDecodeText">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                Decode from Base64
+              </button>
+              <button class="btn btn-secondary" id="btnSwapText" title="Swap input and output content">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12M17 20l4-4M17 20l-4-4"/></svg>
+                Swap
+              </button>
+            </div>
+          </div>
+
+          <!-- Output Area -->
+          <div class="output-group">
+            <div class="label-row">
+              <label for="textOutput">Result Output</label>
+              <span class="char-count" id="textOutputCount">0 chars</span>
+            </div>
+            <textarea id="textOutput" readonly placeholder="Resulting converted output will appear here..." rows="8"></textarea>
+            <div class="button-row">
+              <button class="btn btn-secondary" id="btnCopyText">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copy Result
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: File Operations -->
+    <section id="fileSection" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2>File Converter &amp; Processor</h2>
+          <span class="badge badge-neutral">Client-Side Reader API</span>
+        </div>
+
+        <div class="file-dropzone-wrapper">
+          <div class="dropzone" id="fileDropzone">
+            <input type="file" id="fileInputSelect" class="file-input-hidden">
+            <div class="dropzone-content">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <p class="dropzone-title">Click to upload or drag &amp; drop a file</p>
+              <p class="dropzone-subtitle">Supports text, images, PDF, binary documents up to 25MB</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metadata Card -->
+        <div id="fileInfoCard" class="file-info-card hidden">
+          <div class="file-info-header">
+            <span class="file-info-title">File Details</span>
+            <button class="btn btn-sm btn-secondary" id="btnRemoveFile">Remove File</button>
+          </div>
+          <div class="file-info-grid">
+            <div class="meta-item">
+              <span class="meta-label">File Name:</span>
+              <span class="meta-value" id="metaFileName">-</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">File Type / MIME:</span>
+              <span class="meta-value" id="metaFileType">-</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">File Size:</span>
+              <span class="meta-value" id="metaFileSize">-</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Last Modified:</span>
+              <span class="meta-value" id="metaFileModified">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace-grid margin-top-md">
+          <!-- File Output / Base64 Data Input -->
+          <div class="input-group">
+            <div class="label-row">
+              <label for="fileBase64Output">Base64 Encoded File String</label>
+              <span class="char-count" id="fileBase64Count">0 chars</span>
+            </div>
+            <textarea id="fileBase64Output" placeholder="Upload a file above to encode it into Base64, or paste Base64 string here to decode back to downloadable file..." rows="7"></textarea>
+            <div class="button-row">
+              <button class="btn btn-secondary" id="btnCopyFileBase64">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copy Base64
+              </button>
+              <button class="btn btn-primary" id="btnDownloadDecodedFile">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Decode &amp; Download File
+              </button>
+              <button class="btn btn-outline" id="btnClearFileSection">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security & Information Footer -->
+    <footer class="app-footer">
+      <div class="footer-info">
+        <p><strong>DevOps Project:</strong> Base64 Encoder / Decoder Pipeline • <strong>Author:</strong> Veermaniyan.B</p>
+        <p class="footer-sub">Built with pure HTML5, CSS3, JavaScript. Fully client-side execution ensures 100% data privacy.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
