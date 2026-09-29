@@ -91,6 +91,15 @@ main (Production)
 
 ---
 
+## Automated Testing
+
+- **Test Coverage:** The project contains automated unit tests and smoke tests.
+- **Execution:** Tests can be executed using `npm test`.
+- **CI/CD Pipeline Integration:** The tests will be integrated into the Jenkins CI/CD pipeline to serve as an automated build quality gate.
+- **Purpose:** The purpose of automated testing is to verify the Base64 encoding and decoding functionality before deployment, ensuring reliable string and file operations without regression.
+
+---
+
 ## Jenkins 8-Stage CI/CD Pipeline Workflow
 
 ```mermaid
